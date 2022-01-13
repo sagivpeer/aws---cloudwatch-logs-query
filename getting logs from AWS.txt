@@ -1,0 +1,20 @@
+import boto3 #imported the boto3 library to access AWS API
+import json
+
+AWS_REGION = "eu-west-2" # set up the region that the cloudwatche logs are stored in 
+
+client = boto3.client('logs', region_name=AWS_REGION) #setting up the boto client to that region
+
+response = client.get_log_events(
+    logGroupName='XM',  #setting up the created log group to the api call
+    logStreamName='126789559858_CloudTrail_eu-west-2_2', ##setting up the created log group to the api call
+    startFromHead=True
+)
+
+json_object = json.dumps((response['events'][2]), indent=4)  #changing the dict format that i recived from amazon to json for a better view.
+print(json_object) #printing the logs in a json format.
+
+# username = input("Please ,Enter a username:")
+
+# print(response.keys())
+# print(response.values())
